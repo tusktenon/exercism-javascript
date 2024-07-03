@@ -20,13 +20,23 @@
 // Get those rates calculated!
 
 /**
+ * The number of billable hours in work day
+ */
+const WORK_HOURS_PER_DAY = 8
+
+/**
+ * The number of billable days in a month
+ */
+const WORK_DAYS_PER_MONTH = 22
+
+/**
  * The day rate, given a rate per hour
  *
  * @param {number} ratePerHour
  * @returns {number} the rate per day
  */
 export function dayRate(ratePerHour) {
-  throw new Error('Remove this line and implement the function');
+  return WORK_HOURS_PER_DAY * ratePerHour
 }
 
 /**
@@ -37,7 +47,7 @@ export function dayRate(ratePerHour) {
  * @returns {number} the number of days
  */
 export function daysInBudget(budget, ratePerHour) {
-  throw new Error('Remove this line and implement the function');
+  return Math.trunc(budget / dayRate(ratePerHour))
 }
 
 /**
@@ -49,5 +59,10 @@ export function daysInBudget(budget, ratePerHour) {
  * @returns {number} the rounded up discounted rate
  */
 export function priceWithMonthlyDiscount(ratePerHour, numDays, discount) {
-  throw new Error('Remove this line and implement the function');
+  let fullMonths = Math.trunc(numDays / WORK_DAYS_PER_MONTH)
+  let discountedDays = WORK_DAYS_PER_MONTH * fullMonths
+  let fullRateDays = numDays % WORK_DAYS_PER_MONTH
+  let discountedPortion = discountedDays * dayRate((1 - discount) * ratePerHour)
+  let fullRatePortion = fullRateDays * dayRate(ratePerHour)
+  return Math.ceil(discountedPortion + fullRatePortion)
 }

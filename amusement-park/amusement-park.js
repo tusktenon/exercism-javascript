@@ -33,11 +33,14 @@ export function revokeTicket(visitor) {
  */
 export function ticketStatus(tickets, ticketId) {
   const status = tickets[ticketId]
-  return status === undefined
-    ? 'unknown ticket id'
-    : status === null
-      ? 'not sold'
-      : 'sold to ' + status
+  switch (status) {
+    case undefined:
+      return 'unknown ticket id'
+    case null:
+      return 'not sold'
+    default:
+      return `sold to ${status}`
+  }
 }
 
 /**

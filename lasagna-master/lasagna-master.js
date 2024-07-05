@@ -28,9 +28,11 @@ export function preparationTime(layers, averageTime = 2) {
 }
 
 export function quantities(layers) {
-  const noodlesLayers = layers.filter((layer) => layer === 'noodles').length
-  const sauceLayers = layers.filter((layer) => layer === 'sauce').length
-  return { noodles: 50 * noodlesLayers, sauce: 0.2 * sauceLayers }
+  const count = function (type) {
+    return layers.filter((layer) => layer === type).length
+  }
+
+  return { noodles: 50 * count('noodles'), sauce: 0.2 * count('sauce') }
 }
 
 export function addSecretIngredient(friendsList, myList) {

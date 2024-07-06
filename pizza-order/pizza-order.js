@@ -58,13 +58,13 @@ function orderPriceRecursive(pizzaOrders) {
 // Although tail call optimization is part of the ECMAScript 6 specification, it is not
 // implemented by the V8 JavaScript engine (which Node.js runs).
 function orderPriceTailRecursive(pizzaOrders) {
-  const helper = (acc, orders) => {
+  const helper = (orders, acc) => {
     let order = orders.pop()
     if (order === undefined) return acc
-    return helper(acc + pizzaPrice(order.pizza, ...order.extras), orders)
+    return helper(orders, acc + pizzaPrice(order.pizza, ...order.extras))
   }
 
-  return helper(0, pizzaOrders)
+  return helper(pizzaOrders, 0)
 }
 
 // An imperative (loop-based) solution.

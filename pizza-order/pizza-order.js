@@ -11,7 +11,21 @@
  * @returns {number} the price of the pizza
  */
 export function pizzaPrice(pizza, ...extras) {
-  throw new Error('Please implement the pizzaPrice function');
+  switch (extras.pop()) {
+    case 'ExtraSauce':
+      return 1 + pizzaPrice(pizza, ...extras)
+    case 'ExtraToppings':
+      return 2 + pizzaPrice(pizza, ...extras)
+    case undefined:
+      switch (pizza) {
+        case 'Caprese':
+          return 9
+        case 'Formaggio':
+          return 10
+        case 'Margherita':
+          return 7
+      }
+  }
 }
 
 /**
@@ -24,5 +38,5 @@ export function pizzaPrice(pizza, ...extras) {
  * @returns {number} the price of the total order
  */
 export function orderPrice(pizzaOrders) {
-  throw new Error('Please implement the orderPrice function');
+  throw new Error('Please implement the orderPrice function')
 }

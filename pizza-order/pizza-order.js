@@ -40,10 +40,12 @@ export function pizzaPrice(pizza, ...extras) {
 export function orderPrice(pizzaOrders) {
   // Select an implementation
   // return orderPriceRecursive(pizzaOrders)
-  return orderPriceTailRecursive(pizzaOrders)
+  // return orderPriceTailRecursive(pizzaOrders)
+  // return orderPriceLoop(pizzaOrders)
+  return orderPriceReduce(pizzaOrders)
 }
 
-// A recursive implementation.
+// A recursive solution.
 // As expected, this will exceed the maximum call stack size for sufficiently large `pizzaOrders`.
 function orderPriceRecursive(pizzaOrders) {
   let order = pizzaOrders.pop()
@@ -51,7 +53,7 @@ function orderPriceRecursive(pizzaOrders) {
   return pizzaPrice(order.pizza, ...order.extras) + orderPrice(pizzaOrders)
 }
 
-// A tail-recursive implementation.
+// A tail-recursive solution.
 // This will also exceed the maximum call stack size for sufficiently large `pizzaOrders`.
 // Although tail call optimization is part of the ECMAScript 6 specification, it is not
 // implemented by the V8 JavaScript engine (which Node.js runs).
@@ -63,4 +65,23 @@ function orderPriceTailRecursive(pizzaOrders) {
   }
 
   return helper(0, pizzaOrders)
+}
+
+// An imperative (loop-based) solution.
+// Works even for large `pizzaOrders`.
+function orderPriceLoop(pizzaOrders) {
+  let total = 0
+  for (const order of pizzaOrders) {
+    total += pizzaPrice(order.pizza, ...order.extras)
+  }
+  return total
+}
+
+// A solution using the `reduce` array transformation.
+// Works even for large `pizzaOrders`.
+function orderPriceReduce(pizzaOrders) {
+  return pizzaOrders.reduce(
+    (acc, order) => acc + pizzaPrice(order.pizza, ...order.extras),
+    0,
+  )
 }

@@ -38,7 +38,29 @@ export function pizzaPrice(pizza, ...extras) {
  * @returns {number} the price of the total order
  */
 export function orderPrice(pizzaOrders) {
+  // Select an implementation
+  // return orderPriceRecursive(pizzaOrders)
+  return orderPriceTailRecursive(pizzaOrders)
+}
+
+// A recursive implementation.
+// As expected, this will exceed the maximum call stack size for sufficiently large `pizzaOrders`.
+function orderPriceRecursive(pizzaOrders) {
   let order = pizzaOrders.pop()
   if (order === undefined) return 0
   return pizzaPrice(order.pizza, ...order.extras) + orderPrice(pizzaOrders)
+}
+
+// A tail-recursive implementation.
+// This will also exceed the maximum call stack size for sufficiently large `pizzaOrders`.
+// Although tail call optimization is part of the ECMAScript 6 specification, it is not
+// implemented by the V8 JavaScript engine (which Node.js runs).
+function orderPriceTailRecursive(pizzaOrders) {
+  const helper = (acc, orders) => {
+    let order = orders.pop()
+    if (order === undefined) return acc
+    return helper(acc + pizzaPrice(order.pizza, ...order.extras), orders)
+  }
+
+  return helper(0, pizzaOrders)
 }

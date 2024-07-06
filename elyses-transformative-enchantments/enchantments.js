@@ -19,11 +19,15 @@ export function seeingDouble(deck) {
  * @returns {number[]} deck with triplicate 3s
  */
 export function threeOfEachThree(deck) {
-  return deck.reduce((acc, current) => {
-    acc.push(current)
-    if (current === 3) acc.push(current, current)
-    return acc
-  }, [])
+  // Option 1: Use `reduce`:
+  // return deck.reduce((acc, current) => {
+  //   acc.push(current)
+  //   if (current === 3) acc.push(current, current)
+  //   return acc
+  // }, [])
+
+  // Option 2: Use `flatMap`:
+  return deck.flatMap((card) => (card === 3 ? [card, card, card] : card))
 }
 
 /**

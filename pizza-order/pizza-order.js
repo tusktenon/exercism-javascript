@@ -11,6 +11,13 @@
  * @returns {number} the price of the pizza
  */
 export function pizzaPrice(pizza, ...extras) {
+  // Select an implementation
+  // return pizzaPrice1(pizza, ...extras)
+  return pizzaPrice2(pizza, ...extras)
+}
+
+// My original solution
+function pizzaPrice1(pizza, ...extras) {
   switch (extras.pop()) {
     case 'ExtraSauce':
       return 1 + pizzaPrice(pizza, ...extras)
@@ -26,6 +33,15 @@ export function pizzaPrice(pizza, ...extras) {
           return 7
       }
   }
+}
+
+const PIZZA_PRICES = { Caprese: 9, Formaggio: 10, Margherita: 7 }
+const EXTRA_PRICES = { ExtraSauce: 1, ExtraToppings: 2 }
+
+// An alternative solution using the const objects above and the array `slice` method
+function pizzaPrice2(pizza, ...extras) {
+  if (extras.length === 0) return PIZZA_PRICES[pizza]
+  return EXTRA_PRICES[extras[0]] + pizzaPrice(pizza, ...extras.slice(1))
 }
 
 /**

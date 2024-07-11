@@ -18,7 +18,7 @@ export function isValidCommand(command) {
  * @returns {string} The message without the emojis encryption
  */
 export function removeEmoji(message) {
-  let emoji = new RegExp(/emoji(\d+)/, 'g')
+  let emoji = new RegExp(/emoji[\d]+/, 'g')
   return message.replace(emoji, '')
 }
 
@@ -29,7 +29,7 @@ export function removeEmoji(message) {
  * @returns {string} the Chatbot response to the phone Validation
  */
 export function checkPhoneNumber(number) {
-  return number.length === 17 && /\(\+\d{2}\) \d{3}-\d{3}-\d{3}/.test(number)
+  return /^\(\+\d{2}\) \d{3}-\d{3}-\d{3}$/.test(number)
     ? 'Thanks! You can now download me to your phone.'
     : `Oops, it seems like I can't reach out to ${number}`
 }
@@ -51,9 +51,6 @@ export function getURL(userInput) {
  * @returns {string} Greeting from the chatbot
  */
 export function niceToMeetYou(fullName) {
-  const name = fullName.replace(
-    /(\p{L}+), (\p{L}+)/u,
-    (_match, last, first) => first + ' ' + last,
-  )
+  const name = fullName.replace(/(\p{L}+), (\p{L}+)/u, '$2 $1')
   return `Nice to meet you, ${name}`
 }

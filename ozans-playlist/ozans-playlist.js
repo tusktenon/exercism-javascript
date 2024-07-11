@@ -1,5 +1,10 @@
 // @ts-check
 
+// NOTE: In the comments to his solution, SleeplessByte has an excellent
+// explanation of why he uses `Array.from` instead of the rest operator to
+// construct an array from a set:
+// https://exercism.org/tracks/javascript/exercises/ozans-playlist/solutions/SleeplessByte
+
 /**
  * Removes duplicate tracks from a playlist.
  *

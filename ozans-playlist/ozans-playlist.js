@@ -1,11 +1,5 @@
 // @ts-check
 
-function setToList(set) {
-  const list = []
-  set.forEach((element) => list.push(element))
-  return list
-}
-
 /**
  * Removes duplicate tracks from a playlist.
  *
@@ -13,7 +7,7 @@ function setToList(set) {
  * @returns {string[]} new playlist with unique entries
  */
 export function removeDuplicates(playlist) {
-  return setToList(new Set(playlist))
+  return Array.from(new Set(playlist))
 }
 
 /**
@@ -38,7 +32,7 @@ export function hasTrack(playlist, track) {
 export function addTrack(playlist, track) {
   const playset = new Set(playlist)
   playset.add(track)
-  return setToList(playset)
+  return Array.from(playset)
 }
 
 /**
@@ -51,7 +45,7 @@ export function addTrack(playlist, track) {
 export function deleteTrack(playlist, track) {
   const playset = new Set(playlist)
   playset.delete(track)
-  return setToList(playset)
+  return Array.from(playset)
 }
 
 /**
@@ -66,5 +60,5 @@ export function listArtists(playlist) {
     let [, artist] = track.split(' - ')
     artists.add(artist)
   }
-  return setToList(artists)
+  return Array.from(artists)
 }

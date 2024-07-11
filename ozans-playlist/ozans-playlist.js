@@ -18,8 +18,7 @@ export function removeDuplicates(playlist) {
  * @returns {boolean} whether the track is in the playlist
  */
 export function hasTrack(playlist, track) {
-  const playset = new Set(playlist)
-  return playset.has(track)
+  return new Set(playlist).has(track)
 }
 
 /**
@@ -55,10 +54,5 @@ export function deleteTrack(playlist, track) {
  * @returns {string[]} list of artists
  */
 export function listArtists(playlist) {
-  const artists = new Set()
-  for (const track of playlist) {
-    let [, artist] = track.split(' - ')
-    artists.add(artist)
-  }
-  return Array.from(artists)
+  return Array.from(new Set(playlist.map((track) => track.split(' - ').pop())))
 }

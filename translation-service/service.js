@@ -1,4 +1,7 @@
 /// <reference path="./global.d.ts" />
+
+import { Untranslatable } from './errors'
+
 // @ts-check
 //
 // The lines above enable type checking for this file. Various IDEs interpret
@@ -14,7 +17,7 @@ export class TranslationService {
    * @param {ExternalApi} api the original api
    */
   constructor(api) {
-    this.api = api;
+    this.api = api
   }
 
   /**
@@ -27,7 +30,7 @@ export class TranslationService {
    * @returns {Promise<string>}
    */
   free(text) {
-    throw new Error('Implement the free function');
+    return this.api.fetch(text).then(response => response.translation)
   }
 
   /**
@@ -41,7 +44,8 @@ export class TranslationService {
    * @returns {Promise<string[]>}
    */
   batch(texts) {
-    throw new Error('Implement the batch function');
+    if (texts.length === 0) return Promise.reject(new BatchIsEmpty())
+    return Promise.all(texts.map(text => this.free(text)))
   }
 
   /**
@@ -54,7 +58,23 @@ export class TranslationService {
    * @returns {Promise<void>}
    */
   request(text) {
-    throw new Error('Implement the request function');
+    return new Promise((resolve, reject) => {
+      this.api.request(text, e1 => {
+        if (e1 instanceof Untranslatable) reject(e1)
+        else if (e1 === undefined) resolve(e1)
+        else {
+          this.api.request(text, e2 => {
+            if (e2 === undefined) resolve(e2)
+            else {
+              this.api.request(text, e3 => {
+                if (e3 === undefined) resolve(e3)
+                else reject(e3)
+              })
+            }
+          })
+        }
+      })
+    })
   }
 
   /**
@@ -68,7 +88,16 @@ export class TranslationService {
    * @returns {Promise<string>}
    */
   premium(text, minimumQuality) {
-    throw new Error('Implement the premium function');
+    return this.api
+      .fetch(text)
+      .catch(err => {
+        if (err instanceof Untranslatable) throw err
+        else return this.request(text).then(() => this.api.fetch(text))
+      })
+      .then(result => {
+        if (result.quality < minimumQuality) throw new QualityThresholdNotMet()
+        else return result.translation
+      })
   }
 }
 
@@ -85,9 +114,9 @@ export class QualityThresholdNotMet extends Error {
       `
 The translation of ${text} does not meet the requested quality threshold.
     `.trim(),
-    );
+    )
 
-    this.text = text;
+    this.text = text
   }
 }
 
@@ -101,6 +130,6 @@ export class BatchIsEmpty extends Error {
       `
 Requested a batch translation, but there are no texts in the batch.
     `.trim(),
-    );
+    )
   }
 }

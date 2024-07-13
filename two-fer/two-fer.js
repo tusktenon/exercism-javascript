@@ -1,8 +1,5 @@
-//
-// This is only a SKELETON file for the 'Two fer' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+// Option 1: Use a default argument
+// export const twoFer = (name = 'you') => `One for ${name}, one for me.`
 
-export const twoFer = () => {
-  throw new Error('Remove this statement and implement this function');
-};
+// Option 2: Use the first-defined operator
+export const twoFer = name => `One for ${name ?? 'you'}, one for me.`

@@ -58,6 +58,13 @@ export class TranslationService {
    * @returns {Promise<void>}
    */
   request(text) {
+    // Select an implementation:
+    // return this.request1(text)
+    return this.request2(text)
+  }
+
+  // Option 1: Construct the returned Promise directly
+  request1(text) {
     return new Promise((resolve, reject) => {
       this.api.request(text, e1 => {
         if (e1 instanceof Untranslatable) reject(e1)
@@ -77,6 +84,19 @@ export class TranslationService {
     })
   }
 
+  // Option 2: Convert the API request to a Promise, to take advantage of
+  // Promise chaining
+  request2(text) {
+    const asPromise = () =>
+      new Promise((resolve, reject) => {
+        this.api.request(text, result =>
+          result === undefined ? resolve() : reject(result),
+        )
+      })
+
+    return asPromise().catch(asPromise).catch(asPromise)
+  }
+
   /**
    * Retrieves the translation for the given text
    *
@@ -92,11 +112,11 @@ export class TranslationService {
       .fetch(text)
       .catch(err => {
         if (err instanceof Untranslatable) throw err
-        else return this.request(text).then(() => this.api.fetch(text))
+        return this.request(text).then(() => this.api.fetch(text))
       })
       .then(result => {
         if (result.quality < minimumQuality) throw new QualityThresholdNotMet()
-        else return result.translation
+        return result.translation
       })
   }
 }

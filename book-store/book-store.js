@@ -1,3 +1,6 @@
+// Inspired by anurat's solution:
+// https://exercism.org/tracks/javascript/exercises/book-store/solutions/anurat
+
 const PRICE_PER_BOOK = [0, 800, 760, 720, 640, 600]
 
 export function cost(books) {

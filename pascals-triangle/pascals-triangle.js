@@ -1,5 +1,5 @@
 export function rows(n) {
-  let triangle = []
+  const triangle = []
   for (let i = 0; i < n; i++) {
     const row = []
     row[0] = 1

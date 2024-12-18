@@ -10,7 +10,7 @@ Remember to do an initial commit after downloading the exercise.
 
 ## Learning Exercises
 
-These are completed during the JavaScript's track's "Learning Mode" to illustrate important language [concepts](https://exercism.org/tracks/javascript/concepts). They're invariably short and simple, and there generally aren't too many reasonable ways to solve them, but they can provide nice examples of JavaScript features and built-in functions.
+These are completed during the JavaScript's track's "Learning Mode" to illustrate important language [concepts](https://exercism.org/tracks/javascript/concepts). They're invariably short and simple, and there generally aren't too many reasonable ways to solve them, but they can provide nice examples of JavaScript features and built-in functions. Because each learning exercise is associated with one or more language concepts, I've listed them all below.
 
 ### Amusement Park
 
@@ -117,4 +117,20 @@ Classes and methods defined using both the older prototype syntax and the newer 
 
 ## Practice Exercises
 
-These are meant for students who've completed Learning Mode or otherwise acquired basic language proficiency, and vary considerably in length and difficulty.
+These are meant for students who've completed Learning Mode or otherwise acquired basic language proficiency, and vary considerably in length and difficulty. Unlike the learning exercises, the list below is not exhaustive.
+
+### Bob
+
+More regular expression practice. Also, `switch (true)` can be [a succinct alternative](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch#an_alternative_to_if...else_chains) to an `if...else` chain.
+
+### Book Store
+
+A tricky problem that can be solved with recursion. `Array` transformation methods (`map`, `filter`, `reduce`, `sort`) allow for a fairly concise solution.
+
+### Gigasecond
+
+A simple introduction to `Date` objects.
+
+### Pangram
+
+Four possible solutions using `Array` methods, a `Set`, or a bit field.

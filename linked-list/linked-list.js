@@ -17,7 +17,7 @@ export class LinkedList {
 
   /** Adds the specified value at the end of a list and returns the new length of the list. */
   push(value) {
-    let newTail = new Node(value)
+    const newTail = new Node(value)
     if (this.#length === 0) {
       this.#head = newTail
     } else {
@@ -31,7 +31,7 @@ export class LinkedList {
   /** Removes the last entry in a list and returns it. If the list is empty, undefined is returned. */
   pop() {
     if (this.#length === 0) return undefined
-    let val = this.#tail.data
+    const val = this.#tail.data
     this.#length--
     if (this.#length === 0) {
       this.#head = null
@@ -46,7 +46,7 @@ export class LinkedList {
   /** Removes the first entry in a list and returns it. If the list is empty, undefined is returned. */
   shift() {
     if (this.#length === 0) return undefined
-    let val = this.#head.data
+    const val = this.#head.data
     this.#length--
     if (this.#length === 0) {
       this.#head = null
@@ -60,7 +60,7 @@ export class LinkedList {
 
   /** Adds the specified value at the front of a list and returns the new length of the list. */
   unshift(value) {
-    let newHead = new Node(value)
+    const newHead = new Node(value)
     if (this.#length === 0) {
       this.#tail = newHead
     } else {

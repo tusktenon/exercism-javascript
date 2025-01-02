@@ -1,4 +1,6 @@
-// import { LinkedList } from './linked-list';
+// Select an implementation:
+// import { LinkedList } from './original';
+// import { LinkedList } from './sentinel';
 import { LinkedList } from './elegant';
 
 describe('LinkedList', () => {

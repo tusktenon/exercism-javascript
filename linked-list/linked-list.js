@@ -1,3 +1,4 @@
+/** My original solution. */
 'use strict'
 
 /** A node in a doubly linked list. */
@@ -43,6 +44,19 @@ export class LinkedList {
     return val
   }
 
+  /** Adds the specified value at the front of a list and returns the new length of the list. */
+  unshift(value) {
+    const newHead = new Node(value)
+    if (this.#length === 0) {
+      this.#tail = newHead
+    } else {
+      newHead.next = this.#head
+      this.#head.prev = newHead
+    }
+    this.#head = newHead
+    return ++this.#length
+  }
+
   /** Removes the first entry in a list and returns it. If the list is empty, undefined is returned. */
   shift() {
     if (this.#length === 0) return undefined
@@ -56,19 +70,6 @@ export class LinkedList {
       this.#head.prev = null
     }
     return val
-  }
-
-  /** Adds the specified value at the front of a list and returns the new length of the list. */
-  unshift(value) {
-    const newHead = new Node(value)
-    if (this.#length === 0) {
-      this.#tail = newHead
-    } else {
-      newHead.next = this.#head
-      this.#head.prev = newHead
-    }
-    this.#head = newHead
-    return ++this.#length
   }
 
   /**

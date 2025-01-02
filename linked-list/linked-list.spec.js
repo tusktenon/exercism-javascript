@@ -1,4 +1,5 @@
-import { LinkedList } from './linked-list';
+// import { LinkedList } from './linked-list';
+import { LinkedList } from './elegant';
 
 describe('LinkedList', () => {
   test('pop gets last element from the list', () => {

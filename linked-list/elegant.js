@@ -20,8 +20,7 @@ export class LinkedList {
    */
   #insert(value, atNode) {
     const newNode = { data: value, prev: atNode, next: atNode.next }
-    atNode.next.prev = newNode
-    atNode.next = newNode
+    atNode.next = atNode.next.prev = newNode
     return ++this.#length
   }
 
@@ -31,11 +30,10 @@ export class LinkedList {
    */
   #remove(node) {
     if (this.#length === 0) return undefined
-    const val = node.data
     node.prev.next = node.next
     node.next.prev = node.prev
     this.#length--
-    return val
+    return node.data
   }
 
   /** Adds the specified value at the end of a list and returns the new length of the list. */

@@ -1,28 +1,25 @@
 export class GradeSchool {
-  #students = new Map()
+  #students = {}
 
   roster() {
     const r = {}
-    for (const [s, y] of this.#students) {
+    for (const [s, y] of Object.entries(this.#students)) {
       r[y] = r[y] ?? []
       r[y].push(s)
     }
-    for (const grade in r) {
-      r[grade].sort()
+    for (const grade of Object.values(r)) {
+      grade.sort()
     }
     return r
   }
 
   add(student, year) {
-    if (this.#students.has(student)) {
-      console.log(`Student "${student}" already registered.`)
-    }
-    this.#students.set(student, year)
+    this.#students[student] = year
   }
 
   grade(year) {
     const g = []
-    for (const [s, y] of this.#students) {
+    for (const [s, y] of Object.entries(this.#students)) {
       if (y === year) {
         g.push(s)
       }

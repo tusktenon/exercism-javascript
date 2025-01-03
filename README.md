@@ -5,7 +5,51 @@ These are my solutions to the exercises of the [JavaScript track](https://exerci
 
 ## Completing Exercises
 
-Remember to do an initial commit after downloading the exercise.
+- Remember to do an initial commit after downloading the exercise.
+- Copy over your `.prettier.yaml` file from a previous exercise.
+- Install any dependencies needed to run the tests. Exercism recommends using [pnpm](https://pnpm.io/) to save disk space (most of the exercises have the same dependencies). Within the exercise directory, run
+    - `pnpm install` if you've installed `pnpm` with a package manager like Homebrew, or
+    - `corepack pnpm install` to let Node.js manage your `pnpm` installation.
+- Invoke strict mode by adding `'use strict'` to the start of the solution file. (I'm not sure if this is actually necessary: the solution file is imported as a module by the test script, and modules are always executed in strict mode.)
+- Once you think you have a working solution, verify with `npm test`. 
+
+### Handling Multiple Solutions
+
+I often like to write several solutions to an exercise. If I'm only writing multiple implementations for one or two functions, I'll just include the alternatives as (unexported) functions in the same file; the exported function is then just used as a wrapper to select one of the options:
+```javascript
+export function requiredFunction(x, y) {
+    // select an implementation
+    // return requiredFunction1(x, y)
+    // return requiredFunction2(x, y)
+    return requiredFunction3(x, y)
+}
+```
+If the exercise involves writing a class with a number of methods, I place each implementation in its own file. To select a particular implementation for testing, there are several approaches.
+
+As an example, consider the Linked List exercise. The first line of the testing script, `linked-list.spec.js`, attempts to import a class called `LinkedList` from a file named `linked-list.js`:
+```javascript
+import { LinkedList } from './linked-list'
+```
+My three solutions to the exercise are in the files `original.js`, `sentinel.js` and `elegant.js`.
+
+- *Option 1.* Just symlink the desired solution to `linked-list.js`. This is a fairly robust, language-agnostic approach that works for most of the Exercism language tracks. You may want to add the link target `(linked-list.js` in this case) to an exercise-level `.gitignore` file.
+
+- *Option 2.* Replace the first line of the test script as needed. In this case, you'd write something like
+    ```javascript
+    // Select an implementation:
+    // import { LinkedList } from './original';
+    // import { LinkedList } from './sentinel';
+    import { LinkedList } from './elegant';
+    ```
+
+- *Option 3.* Write a `linked-list.js` file that simple reexports the desired solution:
+    ```javascript
+    // Select an implementation:
+    // export { LinkedList } from './original';
+    // export { LinkedList } from './sentinel';
+    export { LinkedList } from './elegant';
+    ```
+    If you want to publish all of your implementations on Exercism, this is the best choice. As with Option 1, you may want to add a `.gitignore` file containing `linked-list.js`.
 
 
 ## Learning Exercises
@@ -130,6 +174,9 @@ A tricky problem that can be solved with recursion. `Array` transformation metho
 ### Gigasecond
 
 A simple introduction to `Date` objects.
+
+### Linked List
+A classic doubly linked list, suitable for use as a deque. I wrote several versions, with and without sentinel nodes. This exercise presents a perfect opportunity to use private fields and methods, which are relatively recent additions to the language.
 
 ### Pangram
 

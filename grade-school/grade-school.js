@@ -18,6 +18,13 @@ export class GradeSchool {
   }
 
   grade(year) {
+    return Object.entries(this.#students)
+      .flatMap(([s, y]) => (y === year ? [s] : []))
+      .sort()
+  }
+
+  // An imperative (loop-based) implementation of grade, for comparison.
+  gradeAlt(year) {
     const g = []
     for (const [s, y] of Object.entries(this.#students)) {
       if (y === year) {

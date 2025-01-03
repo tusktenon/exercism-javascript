@@ -175,6 +175,12 @@ A tricky problem that can be solved with recursion. `Array` transformation metho
 
 A simple introduction to `Date` objects.
 
+### Grade School
+
+There's a very nice, functional implementation of the `grade` method. It's a bit of a judgment call as to whether the `#students` field should be a simple object or a `Map`.
+
+I chose to store students as keys and grades as values, which makes the `add` method short and efficient, but the `roster` and `grade` methods slower and more involved. Most community solutions went with the opposite approach.
+
 ### Linked List
 A classic doubly linked list, suitable for use as a deque. I wrote several versions, with and without sentinel nodes. This exercise presents a perfect opportunity to use private fields and methods, which are relatively recent additions to the language.
 

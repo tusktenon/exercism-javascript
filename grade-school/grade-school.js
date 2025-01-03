@@ -1,18 +1,32 @@
-//
-// This is only a SKELETON file for the 'Grade School' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class GradeSchool {
+  #students = new Map()
+
   roster() {
-    throw new Error('Remove this statement and implement this function');
+    const r = {}
+    for (const [s, y] of this.#students) {
+      r[y] = r[y] ?? []
+      r[y].push(s)
+    }
+    for (const grade in r) {
+      r[grade].sort()
+    }
+    return r
   }
 
-  add() {
-    throw new Error('Remove this statement and implement this function');
+  add(student, year) {
+    if (this.#students.has(student)) {
+      console.log(`Student "${student}" already registered.`)
+    }
+    this.#students.set(student, year)
   }
 
-  grade() {
-    throw new Error('Remove this statement and implement this function');
+  grade(year) {
+    const g = []
+    for (const [s, y] of this.#students) {
+      if (y === year) {
+        g.push(s)
+      }
+    }
+    return g.sort()
   }
 }
